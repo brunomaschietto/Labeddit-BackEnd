@@ -30,6 +30,7 @@ export interface UserModel {
 export interface PostModel {
   id: string;
   content: string;
+  comments: number;
   likes: number;
   dislikes: number;
   createdAt: string;
@@ -44,6 +45,7 @@ export interface PostDB {
   id: string;
   creator_id: string;
   content: string;
+  comments: number;
   likes: number;
   dislikes: number;
   created_at: string;
