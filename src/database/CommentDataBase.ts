@@ -1,4 +1,8 @@
 import {
+  CommentDB,
+  CommentWithCreatorsDB,
+    COMMENT_LIKE,
+    LikesDislikesCommentsDB,
     LikesDislikesDB,
     PostDB,
     PostWithCreatorsDB,
@@ -11,8 +15,8 @@ import {
     public static TABLE_COMMENTS = "comments";
     public static TABLE_LIKES_DISLIKES = "likes_dislikes";
   
-    public getPostsWithCreators = async (): Promise<PostWithCreatorsDB[]> => {
-      const result: PostWithCreatorsDB[] = await BaseDatabase.connection(
+    public getCommentsWithCreators = async (): Promise<CommentWithCreatorsDB[]> => {
+      const result: CommentWithCreatorsDB[] = await BaseDatabase.connection(
         CommentDataBase.TABLE_COMMENTS
       )
         .select(
@@ -29,21 +33,21 @@ import {
       return result;
     };
   
-    public insert = async (postDB: PostDB): Promise<void> => {
-      await BaseDatabase.connection(CommentDataBase.TABLE_COMMENTS).insert(postDB);
+    public insert = async (commentDB: CommentDB): Promise<void> => {
+      await BaseDatabase.connection(CommentDataBase.TABLE_COMMENTS).insert(commentDB);
     };
   
-    public findById = async (id: string): Promise<PostDB | undefined> => {
-      const result: PostDB[] = await BaseDatabase.connection(
+    public findById = async (id: string): Promise<CommentDB | undefined> => {
+      const result: CommentDB[] = await BaseDatabase.connection(
         CommentDataBase.TABLE_COMMENTS
       )
         .select()
         .where({ id });
       return result[0];
     };
-    public update = async (id: string, postDB: PostDB): Promise<void> => {
+    public update = async (id: string, commentDB: CommentDB): Promise<void> => {
       await BaseDatabase.connection(CommentDataBase.TABLE_COMMENTS)
-        .update(postDB)
+        .update(commentDB)
         .where({ id });
     };
     public delete = async (id: string): Promise<void> => {
@@ -51,71 +55,70 @@ import {
         .delete()
         .where({ id });
     };
-    public likeOrDislikePost = async (
-      likeDislike: LikesDislikesDB
+    public likeOrDislikeComment = async (
+      likeDislike: LikesDislikesCommentsDB
     ): Promise<void> => {
       await BaseDatabase.connection(CommentDataBase.TABLE_LIKES_DISLIKES).insert(
         likeDislike
       );
     };
     public findPostsWithCreatorById = async (
-      postId: string
-    ): Promise<PostWithCreatorsDB | undefined> => {
-      const result: PostWithCreatorsDB[] = await BaseDatabase.connection(
+      commentId: string
+    ): Promise<CommentWithCreatorsDB | undefined> => {
+      const result: CommentWithCreatorsDB[] = await BaseDatabase.connection(
         CommentDataBase.TABLE_COMMENTS
       )
         .select(
-          "posts.id",
-          "posts.creator_id",
-          "posts.content",
-          "posts.comments",
-          "posts.likes",
-          "posts.dislikes",
-          "posts.created_at",
-          "posts.updated_at",
+          "comments.id",
+          "comments.creator_id",
+          "comments.content",
+          "comments.likes",
+          "comments.dislikes",
+          "comments.created_at",
+          "comments.updated_at",
           "users.name AS creator_name"
         )
-        .join("users", "posts.creator_id", "=", "users.id")
-        .where("posts.id", postId);
+        .join("users", "comments.creator_id", "=", "users.id")
+        .where("comments.id", commentId);
       return result[0];
     };
     public findLikeDislike = async (
-      likeDislikeToFind: LikesDislikesDB
-    ): Promise<POST_LIKE | null> => {
-      const [likeDislikeDB]: LikesDislikesDB[] = await BaseDatabase.connection(
+      likeDislikeToFind: LikesDislikesCommentsDB
+    ): Promise<COMMENT_LIKE | null> => {
+      const [likeDislikeDB]: LikesDislikesCommentsDB[] = await BaseDatabase.connection(
         CommentDataBase.TABLE_LIKES_DISLIKES
       )
         .select()
         .where({
           user_id: likeDislikeToFind.user_id,
-          post_id: likeDislikeToFind.post_id,
+          comment_id: likeDislikeToFind.comment_id,
         });
       if (likeDislikeDB) {
         return likeDislikeDB.like === 1
-          ? POST_LIKE.JA_CURTIU
-          : POST_LIKE.JA_DESCURTIU;
+          ? COMMENT_LIKE.ALREADY_LIKED
+          : COMMENT_LIKE.ALREADY_DESLIKED;
       } else {
         return null;
       }
     };
     public removeLikeDislike = async (
-      likeDislikeDB: LikesDislikesDB
+      likeDislikeDB: LikesDislikesCommentsDB
     ): Promise<void> => {
       await BaseDatabase.connection(CommentDataBase.TABLE_LIKES_DISLIKES)
         .delete()
         .where({
           user_id: likeDislikeDB.user_id,
-          post_id: likeDislikeDB.post_id,
+          comment_id: likeDislikeDB.comment_id,
         });
     };
     public updateLikeDislike = async (
-      likeDislikeDB: LikesDislikesDB
+      likeDislikeDB: LikesDislikesCommentsDB
     ) => {
       await BaseDatabase.connection(CommentDataBase.TABLE_LIKES_DISLIKES)
         .update(likeDislikeDB)
         .where({
           user_id: likeDislikeDB.user_id,
-          post_id: likeDislikeDB.post_id,
+          comment_id: likeDislikeDB.comment_id,
         });
     };
   }
