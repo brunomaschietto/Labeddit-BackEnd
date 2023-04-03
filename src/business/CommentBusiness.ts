@@ -7,6 +7,7 @@ import {
   COMMENT_LIKE,
   LikesDislikesCommentsDB,
   USER_ROLES,
+  CommentDB,
 } from "../interfaces/types";
 import { Comment } from "../models/Comment";
 import { HashManager } from "../services/HashManager";
@@ -23,7 +24,8 @@ export class CommentBusiness {
   public getAllComments = async (
     input: GetCommentsInputDTO
   ): Promise<GetCommentsOutputDTO> => {
-    const { token } = input;
+    const { token, id } = input;
+    console.log(id)
 
     if (token === undefined) {
       throw new BadRequestError("'token' ausente");
@@ -36,7 +38,7 @@ export class CommentBusiness {
     }
 
     const commentsWithCreatorsDB: CommentWithCreatorsDB[] =
-      await this.commentDataBase.getCommentsWithCreators();
+      await this.commentDataBase.getCommentsWithCreators(id);
 
     const comments = commentsWithCreatorsDB.map((commentWithCreatorsDB) => {
       const comment = new Comment(
@@ -45,7 +47,7 @@ export class CommentBusiness {
         commentWithCreatorsDB.likes,
         commentWithCreatorsDB.dislikes,
         commentWithCreatorsDB.created_at,
-        commentWithCreatorsDB.updated_at,
+        commentWithCreatorsDB.post_id,
         commentWithCreatorsDB.creator_id,
         commentWithCreatorsDB.creator_name
       );
@@ -55,8 +57,9 @@ export class CommentBusiness {
 
     return output;
   };
-  public createComment = async (input: CreateCommentInputDTO): Promise<void> => {
-    const { token, content } = input;
+  public createComment = async (input: CreateCommentInputDTO): Promise<CommentDB> => {
+    const { token, content, postId } = input;
+    console.log(postId)
 
     if (token === undefined) {
       throw new BadRequestError("'token' ausente");
@@ -74,7 +77,6 @@ export class CommentBusiness {
 
     const id = this.idGenerator.generate();
     const createdAt = new Date().toISOString();
-    const updatedAt = new Date().toISOString();
     const creatorId = payload.id;
     const creatorName = payload.name;
 
@@ -84,7 +86,7 @@ export class CommentBusiness {
       0,
       0,
       createdAt,
-      updatedAt,
+      postId,
       creatorId,
       creatorName
     );
@@ -92,6 +94,8 @@ export class CommentBusiness {
     const commentDB = comment.toDBModel();
 
     await this.commentDataBase.insert(commentDB);
+
+    return commentDB;
   };
 
   public deleteComment = async (input: DeleteCommentInputDTO): Promise<void> => {
@@ -116,7 +120,7 @@ export class CommentBusiness {
     const creatorId = payload.id;
 
     if (payload.role !== USER_ROLES.ADMIN && commentDB.creator_id !== creatorId) {
-      throw new BadRequestError("somente quem criou o post, pode deletá-lo");
+      throw new BadRequestError("Somente quem criou o comentário, pode deletá-lo");
     }
 
     await this.commentDataBase.delete(idToDelete);
@@ -162,7 +166,7 @@ export class CommentBusiness {
       commentsWithCreatorDB.likes,
       commentsWithCreatorDB.dislikes,
       commentsWithCreatorDB.created_at,
-      commentsWithCreatorDB.updated_at,
+      commentsWithCreatorDB.post_id,
       commentsWithCreatorDB.creator_id,
       commentsWithCreatorDB.creator_name
     );

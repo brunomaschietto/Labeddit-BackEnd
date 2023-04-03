@@ -1,4 +1,4 @@
--- Active: 1678934265124@@127.0.0.1@3306
+-- Active: 1680228192698@@127.0.0.1@3306
 
 CREATE TABLE
     users(
@@ -100,7 +100,7 @@ CREATE TABLE
         dislikes INTEGER DEFAULT(0) NOT NULL,
         created_at TEXT DEFAULT (DATETIME()) NOT NULL,
         updated_at TEXT DEFAULT(DATETIME()) NOT NULL,
-        FOREIGN KEY (creator_id) REFERENCES users(id)
+        FOREIGN KEY (creator_id) REFERENCES users(id),
         FOREIGN KEY (post_id) REFERENCES posts(id)
     );
 
@@ -112,3 +112,21 @@ CREATE TABLE
         FOREIGN KEY (user_id) REFERENCES users(id),
         FOREIGN KEY (comment_id) REFERENCES comments(id)
     );
+
+INSERT INTO comments(id, creator_id, post_id, content)
+VALUES("c001", "u001", "p002", "Oi");
+
+SELECT * FROM comments;
+
+SELECT
+    comments.id,
+    comments.creator_id,
+    comments.post_id,
+    comments.content,
+    comments.likes,
+    comments.dislikes,
+    comments.created_at,
+    users.name AS creator_name
+    FROM comments
+    JOIN users ON comments.creator_id = users.id
+    JOIN posts ON comments.post_id = posts.id;

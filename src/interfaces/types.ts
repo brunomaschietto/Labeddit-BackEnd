@@ -58,7 +58,7 @@ export interface CommentModel {
   likes: number;
   dislikes: number;
   createdAt: string;
-  updatedAt: string;
+  postId: string;
   creator: {
     id: string;
     name: string;
@@ -72,7 +72,7 @@ export interface CommentDB {
   likes: number;
   dislikes: number;
   created_at: string;
-  updated_at: string;
+  post_id: string;
 }
 
 export interface PostWithCreatorsDB extends PostDB {

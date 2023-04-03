@@ -3,11 +3,6 @@ import {
   CommentWithCreatorsDB,
     COMMENT_LIKE,
     LikesDislikesCommentsDB,
-    LikesDislikesDB,
-    PostDB,
-    PostWithCreatorsDB,
-    POST_LIKE,
-    UserDB,
   } from "../interfaces/types";
   import { BaseDatabase } from "./BaseDataBase";
   
@@ -15,21 +10,23 @@ import {
     public static TABLE_COMMENTS = "comments";
     public static TABLE_LIKES_DISLIKES = "likes_dislikes";
   
-    public getCommentsWithCreators = async (): Promise<CommentWithCreatorsDB[]> => {
+    public getCommentsWithCreators = async (id:string): Promise<CommentWithCreatorsDB[]> => {
       const result: CommentWithCreatorsDB[] = await BaseDatabase.connection(
         CommentDataBase.TABLE_COMMENTS
       )
         .select(
           "comments.id",
           "comments.creator_id",
+          "comments.post_id",
           "comments.content",
           "comments.likes",
           "comments.dislikes",
           "comments.created_at",
-          "comments.updated_at",
           "users.name AS creator_name"
         )
-        .join("users", "posts.creator_id", "=", "users.id");
+        .join("users", "comments.creator_id", "=", "users.id")
+        .join("posts", "comments.post_id", "=", "posts.id")
+        .where("comments.post_id", id)
       return result;
     };
   

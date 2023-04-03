@@ -1,16 +1,17 @@
 import { Request, Response } from "express";
 import { CommentBusiness } from "../business/CommentBusiness";
-import { CreatePostInputDTO, DeletePostInputDTO, GetPostsInputDTO, LikeOrDislikePostInputDTO } from "../dtos/userDTO";
+import { CreateCommentInputDTO, DeleteCommentInputDTO, GetCommentsInputDTO, LikeOrDislikeCommentInputDTO } from "../dtos/commentDTO";
 import { BaseError } from "../errors/BaseError";
 
 export class CommentController {
   constructor(private commentBusiness: CommentBusiness) {}
   public getAllComments = async (req: Request, res: Response) => {
     try {
-      const input: GetPostsInputDTO = {
+      const input: GetCommentsInputDTO = {
+        id: req.params.id,
         token: req.headers.authorization
       };
-
+      console.log(input)
       const output = await this.commentBusiness.getAllComments(input);
       
       res.status(200).send(output);
@@ -26,13 +27,14 @@ export class CommentController {
   };
   public createComment = async (req: Request, res: Response) => {
     try {
-      const input: CreatePostInputDTO = {
+      const input: CreateCommentInputDTO = {
         token: req.headers.authorization,
+        postId: req.params.id,
         content: req.body.content
       }
-
+      console.log(input)
       const output = await this.commentBusiness.createComment(input)
-      res.status(201).end()
+      res.status(201).send(output)
     } catch (error) {
       console.log(error);
 
@@ -45,13 +47,13 @@ export class CommentController {
   };
   public deleteComment = async (req: Request, res: Response) => {
     try {
-      const input: DeletePostInputDTO = {
+      const input: DeleteCommentInputDTO = {
         idToDelete: req.params.id,
         token: req.headers.authorization
       }
 
       await this.commentBusiness.deleteComment(input)
-      res.status(200).send("Post deletado com sucesso!")
+      res.status(200).send("Comentario deletado com sucesso!")
     } catch (error) {
       console.log(error);
 
@@ -64,7 +66,7 @@ export class CommentController {
   };
   public likeOrDislikeComment = async (req: Request, res: Response) => {
     try {
-      const input: LikeOrDislikePostInputDTO = {
+      const input: LikeOrDislikeCommentInputDTO = {
         idToLikeOrDislike: req.params.id,
         token: req.headers.authorization,
         like: req.body.like

@@ -2,6 +2,7 @@ import { CommentModel } from "../interfaces/types";
 
 export interface GetCommentsInputDTO {
   token: string | undefined;
+  id: string;
 }
 
 export type GetCommentsOutputDTO = CommentModel[];
@@ -9,6 +10,7 @@ export type GetCommentsOutputDTO = CommentModel[];
 export interface CreateCommentInputDTO {
   token: string | undefined;
   content: unknown;
+  postId: string;
 }
 
 export interface EditCommentInputDTO {

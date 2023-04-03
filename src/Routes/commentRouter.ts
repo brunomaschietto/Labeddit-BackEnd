@@ -17,7 +17,7 @@ const commentController = new CommentController(
   )
 );
 
-commentRouter.get("/", commentController.getAllComments);
-commentRouter.post("/", commentController.createComment);
+commentRouter.get("/:id", commentController.getAllComments);
+commentRouter.post("/:id", commentController.createComment);
 commentRouter.delete("/:id", commentController.deleteComment);
 commentRouter.put("/:id/like", commentController.likeOrDislikeComment);

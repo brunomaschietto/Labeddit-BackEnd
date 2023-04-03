@@ -7,7 +7,7 @@ export class Comment {
     private likes: number,
     private dislikes: number,
     private createdAt: string,
-    private updatedAt: string,
+    private postId: string,
     private creatorId: string,
     private creatorName: string
   ) {}
@@ -70,12 +70,12 @@ export class Comment {
     this.createdAt = value;
   }
 
-  public getUpdatedAt(): string {
-    return this.updatedAt;
+  public getPostId(): string {
+    return this.postId;
   }
 
-  public setUpdatedAt(value: string): void {
-    this.updatedAt = value;
+  public setPostId(value: string): void {
+    this.postId = value;
   }
   public toDBModel(): CommentDB {
     return {
@@ -85,7 +85,7 @@ export class Comment {
       likes: this.likes,
       dislikes: this.dislikes,
       created_at: this.createdAt,
-      updated_at: this.updatedAt,
+      post_id: this.postId,
     };
   }
   public toBusinessModel(): CommentModel {
@@ -95,7 +95,7 @@ export class Comment {
       likes: this.likes,
       dislikes: this.dislikes,
       createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
+      postId: this.postId,
       creator: {
       id: this.creatorId,
       name: this.creatorName
