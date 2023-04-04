@@ -9,11 +9,9 @@ Nesse projeto foram aplicados os conceitos de implementação de segurança e c�
 - [Funcionalidades do projeto](#-funcionalidades-do-projeto)
 - [Layout](#-layout)
 - [Demonstração](#-demonstração)
-- [Passos](#-passos)
 - [Como rodar esse projeto?](#-como-rodar-esse-projeto?)
 - [Tecnologias utilizadas](#-tecnologias-utilizadas)
 - [Pessoas autoras](#-pessoas-autoras)
-- [Cupom](#-cupom)
 
 ## 💻 **Funcionalidades do Projeto**
 
@@ -32,27 +30,21 @@ Nesse projeto foram aplicados os conceitos de implementação de segurança e c�
 
 ## 🖼 **Layout**
 
-![pagina-inicial](./src/assets/paginaInicial.png)
-![pagina-cards](./src/assets/paginaCards.png)
-![pagina-infos](./src/assets/paginaInfos.png)
-![pagina-carrinho](./src/assets/paginaCarrinho.png)
+![pagina-inicial](./src/assets/imagemPostman.png)
 
 ## 🎯 **Demonstração**
 
-[Link demonstração](https://desafio-neoapp.vercel.app/)
-
-## 👨🏻‍🏫 **Passos**
-
-No começo do projeto pensei em desenvolvê-lo para celular e com isso já fui pensando em como ficaria os cards dos quadrinhos e as imagens utilizadas para tal estilização. Após isso comecei a estilizá-lo e fazer a consumação da API para formar os cards. Com isso pronto, parti para a página de informações, onde gerei alguns detalhes do card. Por fim realizei a página de Checkout, tentando deixar mais próxima de um Checkout.
+[Link Front-End](https://github.com/brunomaschietto/Labeddit-FrontEnd) </br>
+[Link demonstração](https://documenter.getpostman.com/view/24460718/2s93RXrVhq)
 
 ## 🕹 **Como rodar esse projeto?**
 
 ```
 # Clone esse repositório
-$ git clone https://github.com/brunomaschietto/desafio-neoapp
+$ git clone link-repositório
 
 # Acesse a pasta do projeto no seu terminal
-$ cd desafio-neopapp
+$ cd Labeddit-BackEnd
 
 # Instale as dependências
 $ npm install
@@ -63,17 +55,13 @@ $ npm run dev
 
 ## ⚙️ **Tecnologias Utilizadas**
 
-1. [React](https://pt-br.reactjs.org/)
-2. [Axios](https://axios-http.com/ptbr/docs/intro)
-3. [Styled-Components](https://styled-components.com/)
-4. [React Router Dom](https://reactrouter.com/en/main)
+1. [Node.js](https://nodejs.org/en)
+2. [TypeScript](https://www.typescriptlang.org/docs/)
+3. [Express](https://expressjs.com/pt-br/)
+4. [Jest](https://jestjs.io/pt-BR/)
 
 ## 👩🏻‍💻 **Pessoas autoras**
 
 <p>Bruno Maschietto Simões Cruz</p>
 
 [LinkedIn](https://www.linkedin.com/in/bruno-maschietto/)
-
-## 📎 **Cupom**
-
-O cupom para uso é VALE10%, ele te dará um desconto de 10% nos produtos.
