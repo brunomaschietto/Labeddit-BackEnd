@@ -1,95 +1,94 @@
 import { BaseDatabase } from "../../src/database/BaseDataBase";
 import {
-  LikesDislikesDB,
-  POST_LIKE,
-  PostDB,
-  PostWithCreatorsDB,
+  COMMENT_LIKE,
+  CommentDB,
+  CommentWithCreatorsDB,
+  LikesDislikesCommentsDB,
 } from "../../src/interfaces/types";
 
-export class PostDatabaseMock extends BaseDatabase {
-  public static TABLE_POSTS = "posts";
+export class CommentDatabaseMock extends BaseDatabase {
+  public static TABLE_COMMENTS = "comments";
+
   public static TABLE_LIKES_DISLIKES = "likes_dislikes";
 
-  public getPostsWithCreators = async (): Promise<PostWithCreatorsDB[]> => {
+  public getCommentsWithCreators = async (): Promise<
+    CommentWithCreatorsDB[]
+  > => {
     return [
       {
-        id: "p001",
+        id: "c001",
         creator_id: "id-mock",
+        post_id: "p001",
         content: "publicacao1",
-        comments: 0,
         likes: 1,
         dislikes: 1,
         created_at: expect.any(String),
-        updated_at: expect.any(String),
         creator_name: "nome-criador",
       },
       {
-        id: "p002",
+        id: "c002",
         creator_id: "id-mock",
+        post_id: "p002",
         content: "publicacao2",
-        comments: 1,
-        likes: 0,
-        dislikes: 0,
+        likes: 1,
+        dislikes: 1,
         created_at: expect.any(String),
-        updated_at: expect.any(String),
         creator_name: "nome-criador",
       },
     ];
   };
 
-  public findPostsWithCreatorById = async (
-    postId: string
-  ): Promise<PostWithCreatorsDB | undefined> => {
-    if (postId === "p001") {
+  public findCommentsWithCreatorById = async (
+    commentId: string
+  ): Promise<CommentWithCreatorsDB | undefined> => {
+    if (commentId === "c001") {
       return {
-        id: "p001",
+        id: "c001",
         creator_id: "id-mock",
+        post_id: "p001",
         content: "publicacao1",
-        comments: 0,
         likes: 1,
         dislikes: 1,
         created_at: expect.any(String),
-        updated_at: expect.any(String),
         creator_name: "nome-criador",
       };
     }
   };
 
-  public findById = async (id: string): Promise<PostDB | undefined> => {
-    if (id === "p001") {
+  public findById = async (id: string): Promise<CommentDB | undefined> => {
+    if (id === "c001") {
       return {
-        id: "p001",
+        id: "c001",
         creator_id: "id-mock",
+        post_id: "p001",
         content: "publicacao1",
-        comments: 0,
         likes: 1,
         dislikes: 1,
         created_at: expect.any(String),
-        updated_at: expect.any(String),
       };
     }
   };
-  public insert = async (newPostDB: PostDB): Promise<void> => {};
-  public update = async (id: string, postDB: PostDB): Promise<void> => {};
+  public insert = async (newCommentDB: CommentDB): Promise<void> => {};
+  public update = async (id: string, commentDB: CommentDB): Promise<void> => {};
   public delete = async (id: string): Promise<void> => {};
-  public likeOrDislikePost = async (
-    likeDislike: LikesDislikesDB
+  public likeOrDislikeComment = async (
+    likeDislike: LikesDislikesCommentsDB
   ): Promise<void> => {};
   public findLikeDislike = async (
-    likeDislike: LikesDislikesDB
-  ): Promise<POST_LIKE | null> => {
+    likeDislike: LikesDislikesCommentsDB
+  ): Promise<COMMENT_LIKE | null> => {
     if (likeDislike.like === 1) {
-      return POST_LIKE.JA_CURTIU;
+      return COMMENT_LIKE.ALREADY_LIKED;
     } else if (likeDislike.like === 0) {
-      return POST_LIKE.JA_DESCURTIU;
+      return COMMENT_LIKE.ALREADY_DESLIKED;
     } else {
       return null;
     }
   };
   public removeLikeDislike = async (
-    likeDislikeDB: LikesDislikesDB
+    likeDislikeDB: LikesDislikesCommentsDB
   ): Promise<void> => {};
   public updateLikeDislike = async (
-    likeDislikeDB: LikesDislikesDB
+    likeDislikeDB: LikesDislikesCommentsDB
   ): Promise<void> => {};
 }

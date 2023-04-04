@@ -1,34 +1,44 @@
-# **Desafio NeoApp**
+# **Projeto Labeddit**
 
-O Desafio NeoApp consiste em desenvolver um E-Commerce de Quadrinhos da Marvel, contendo 3 páginas, a Home Page, Infos Page e Checkout Page. A Home é onde ficam os Cards contendo os quadrinhos, com a opção de comprá-los e ver mais informações, a Infos contém as informações detalhadas de cada quadrinho e a Checkout é onde o usuario finaliza as suas compras. O projeto tem como fonte de dados a <a href="https://gateway.marvel.com:443/v1/public/comics">API</a> fornecida pela empresa.
+O Labeddit é uma rede social com o objetivo de promover a conexão e interação entre pessoas. Quem se cadastrar no aplicativo poderá criar, curtir e comentar publicações.
+
+Nesse projeto foram aplicados os conceitos de implementação de segurança e códigos mais escaláveis, tais como Arquitetura em camadas, Programação Orientada a Objetos(POO), senhas com hash(protegidas). Os usuários para estarem logados precisavam de um token autenticado e autorizado.
 
 ## 🔍**Índice**
-* [Funcionalidades do projeto](#-funcionalidades-do-projeto)
-* [Layout](#-layout)
-* [Demonstração](#-demonstração)
-* [Passos](#-passos)
-* [Como rodar esse projeto?](#-como-rodar-esse-projeto?)
-* [Tecnologias utilizadas](#-tecnologias-utilizadas)
-* [Pessoas autoras](#-pessoas-autoras)
-* [Cupom](#-cupom)
 
+- [Funcionalidades do projeto](#-funcionalidades-do-projeto)
+- [Layout](#-layout)
+- [Demonstração](#-demonstração)
+- [Passos](#-passos)
+- [Como rodar esse projeto?](#-como-rodar-esse-projeto?)
+- [Tecnologias utilizadas](#-tecnologias-utilizadas)
+- [Pessoas autoras](#-pessoas-autoras)
+- [Cupom](#-cupom)
 
 ## 💻 **Funcionalidades do Projeto**
-- [x] Utilização de ReactJs ou NextJs
-- [x] Estilização feita com Styled Components
-- [x] Realizar teste E2E com Cypress nos fluxos que achar necessário
-- [x] Que a UI seja autoral do participante, esteticamente bonita e simples de usar
-- [x] Layout responsivo / mobile first
-- [x] Ver o website rodando em algum host estático (Heroku, Netlify, Vercel, Github Pages, etc)
 
+- Endpoints
+  - [x] signup
+  - [x] login
+  - [x] get posts
+  - [x] create post
+  - [x] edit post
+  - [x] delete post
+  - [x] like / dislike post
+  - [x] get comments
+  - [x] create comment
+  - [x] delete comment
+  - [x] like / dislike comment
 
 ## 🖼 **Layout**
+
 ![pagina-inicial](./src/assets/paginaInicial.png)
 ![pagina-cards](./src/assets/paginaCards.png)
 ![pagina-infos](./src/assets/paginaInfos.png)
 ![pagina-carrinho](./src/assets/paginaCarrinho.png)
 
 ## 🎯 **Demonstração**
+
 [Link demonstração](https://desafio-neoapp.vercel.app/)
 
 ## 👨🏻‍🏫 **Passos**
@@ -50,7 +60,6 @@ $ npm install
 # Execute a aplicação
 $ npm run dev
 ```
-
 
 ## ⚙️ **Tecnologias Utilizadas**
 

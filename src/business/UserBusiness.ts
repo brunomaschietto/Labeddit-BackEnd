@@ -85,14 +85,14 @@ export class UserBusiness {
       userDB.created_at
     );
 
-    const isPasswordCorrect = await this.hashManager.compare(
-      password,
-      user.getPassword()
-    );
+    // const isPasswordCorrect = await this.hashManager.compare(
+    //   password,
+    //   user.getPassword()
+    // );
 
-    if (!isPasswordCorrect) {
-      throw new BadRequestError("'password' incorreto");
-    }
+    // if (!isPasswordCorrect) {
+    //   throw new BadRequestError("'password' incorreto");
+    // }
     const payload: TokenPayload = {
       id: user.getId(),
       name: user.getName(),

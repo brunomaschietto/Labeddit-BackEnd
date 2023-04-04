@@ -59,7 +59,7 @@ import {
         likeDislike
       );
     };
-    public findPostsWithCreatorById = async (
+    public findCommentsWithCreatorById = async (
       commentId: string
     ): Promise<CommentWithCreatorsDB | undefined> => {
       const result: CommentWithCreatorsDB[] = await BaseDatabase.connection(

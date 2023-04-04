@@ -116,6 +116,10 @@ export class PostBusiness {
       throw new BadRequestError("Token inválido");
     }
 
+    // if (!payload) {
+    //   throw new BadRequestError("Token inválido");
+    // }
+
     if (typeof content !== "string") {
       throw new BadRequestError("'content' deve ser string");
     }

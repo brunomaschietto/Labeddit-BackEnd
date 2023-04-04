@@ -144,7 +144,7 @@ export class CommentBusiness {
       throw new BadRequestError("'like' deve ser boolean");
     }
 
-    const commentsWithCreatorDB = await this.commentDataBase.findPostsWithCreatorById(
+    const commentsWithCreatorDB = await this.commentDataBase.findCommentsWithCreatorById(
       idToLikeOrDislike
     );
 

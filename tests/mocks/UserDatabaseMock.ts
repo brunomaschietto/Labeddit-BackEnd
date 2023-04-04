@@ -1,4 +1,4 @@
-import { BaseDatabase } from "../../src/database/BaseDatabase";
+import { BaseDatabase } from "../../src/database/BaseDataBase";
 import { UserDB, USER_ROLES } from "../../src/interfaces/types";
 
 export class UserDatabaseMock extends BaseDatabase {
